@@ -76,10 +76,10 @@ WHERE continent is not null
 ORDER BY 1,2
 
 
-
 --Looking at Total Population vs Vaccination 
 -- Different ways to do this 
---Temp Table
+-- Using a temp table get the percent of people vaccinated
+
 DROP table if exists #PercentPopulationVaccinated
 Create Table #PercentPopulationVaccinated
 (
@@ -105,7 +105,7 @@ Select *, (RollingPeopleVaccinated/population)*100
 From  #PercentPopulationVaccinated
 
 
--- USE CTE 
+-- Using a CTE get the percent of people vaccinated
 With PopvsVac (Continent, location,date,population, new_vaccinations,RollingPeopleVaccinated)
 as
 (
@@ -122,6 +122,7 @@ WHERE dea.continent is not null
 )
 Select *, (RollingPeopleVaccinated/population)*100 as RollingVaccinationPercentage
 From PopvsVac
+
 
 --Creating View to store data for later visualizations 
 Create View PercentPopulationVaccinated as
